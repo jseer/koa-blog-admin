@@ -63,14 +63,6 @@ class AdminController {
       data: true,
     };
   }
-
-  async logout(ctx, next) {
-    ctx.session.userId = null;
-    ctx.body = {
-      code: 200,
-      data: null,
-    }
-  }
 }
 
 module.exports = new AdminController();

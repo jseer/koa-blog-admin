@@ -11,14 +11,12 @@ module.exports = function () {
         if(ctx.session.userId || ctx.session.userId===0) {
             return await next();
         } else {
-            const referer = ctx.get('referer');
-            let host = '';
-            try {
-                host = new URL(referer).origin;
-            } catch(e) {
-                console.log(`非法请求： ${referer} ${e}`);
+            ctx.status = 401;
+            ctx.body = {
+                code: 401,
+                data: null,
+                message: '登录态无效',
             }
-            ctx.redirect(`${host}/login`);
         }
     }
 }

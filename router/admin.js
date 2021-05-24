@@ -6,7 +6,6 @@ const adminController = require("../controller/admin");
 router.post("/user/query", adminController.query);
 router.post("/user/update", adminController.update);
 router.post("/user/delete", adminController.delete);
-router.post("/user/logout", adminController.logout);
 
 
 //文章路由

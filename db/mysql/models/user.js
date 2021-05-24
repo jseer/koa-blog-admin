@@ -38,7 +38,7 @@ User.init(
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      defaultValue: false,
       get() {
         const rawValue = this.getDataValue("isAdmin");
         return rawValue ? true : false;

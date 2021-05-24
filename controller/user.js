@@ -56,6 +56,14 @@ class UserController {
       };
     }
   }
+
+  async logout(ctx, next) {
+    ctx.session.userId = null;
+    ctx.body = {
+      code: 200,
+      data: true,
+    }
+  }
   
   async getCaptcha(ctx, next){
     const captcha = svgCaptcha.create();
