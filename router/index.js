@@ -1,23 +1,26 @@
 const Router = require('koa-router');
+const adminRouter = require('./admin');
 
+const router = new Router();
+const checkIsAdmin = require('../middlewares/checkIsAdmin')
 const userController = require('../controller/user');
-
-const router = new Router({
-    prefix: '/api',
-});
-
-const commonRouter = new Router()
+const postController = require('../controller/post');
 
 module.exports = function (app) {
-    commonRouter.get('/getCaptcha', userController.getCaptcha);
+    // 用户路由
+    router.get('/api/getCaptcha', userController.getCaptcha);
+    router.post('/api/user/register', userController.register);
+    router.post('/api/user/login', userController.login);
+    router.get('/api/user/get', userController.get);
 
-    router.post('/user/register', userController.register);
-    router.post('/user/login', userController.login);
-    router.post('/user/query', userController.query);
-    router.post('/user/delete', userController.delete);
-    router.post('/user/deleteAll', userController.deleteAll);
-    router.get('/user/get', userController.get);
+    // 文章路由
+    router.post('/api/post/create', postController.create);
+    router.get('/api/post/get', postController.get);
+    router.post('/api/post/query', postController.query);
+    router.post('/api/post/update', postController.update);
+    router.post('/api/post/delete', postController.delete);
+    router.post('/api/post/publish', postController.publish);
 
+    router.use('/api/admin', checkIsAdmin(), adminRouter.routes());
     app.use(router.routes());
-    app.use(commonRouter.routes());
 }

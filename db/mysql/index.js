@@ -1,33 +1,18 @@
-const config = require("../../config");
-const { Sequelize } = require("sequelize");
+const { sequelize } = require("./sequelize");
+const UserModel = require("./models/user");
+const PostModel = require("./models/post");
 
-const sequelize = new Sequelize({
-  dialect: "mysql",
-  ...config.mysql,
-  sync: {
-    force: true,
-  },
-  timezone: '+08:00',
-  define: {
-    timestamps: true,
-    createdAt: true,
-    updatedAt: true,
-  },
-  dialectOptions: {
-    dateStrings: true,
-    typeCast: true,
-  },
-});
-
-(async () => {
+module.exports = async function (app) {
   try {
     await sequelize.authenticate();
+    UserModel.hasMany(PostModel);
+    PostModel.belongsTo(UserModel);
+    await Promise.all([
+      UserModel.sync(),
+      PostModel.sync(),
+    ]);
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
-})();
-
-module.exports = {
-  sequelize,
-}
+};

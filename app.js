@@ -1,6 +1,5 @@
 const Koa = require('koa');
 const bodyparser = require('koa-bodyparser');
-const cors = require('koa-cors');
 const static = require('koa-static');
 const path = require('path');
 const session = require('koa-session');
@@ -11,18 +10,17 @@ const app = new Koa();
 app.keys = ['koa-blog'];
 
 // 加载 mysql validator
-require('./db/mysql');
+require('./db/mysql')(app);
 require('./util/validator')(app);
 
 // 中间件
-app.use(cors());
+app.use(static(path.resolve(__dirname, 'public')));
 ['logger', 'catchError'].forEach((name)=> {
     const fnPath = path.resolve(__dirname, 'middlewares', name);
     app.use(require(fnPath)());
 })
 app.use(session(config.session, app));
 app.use(checkLogin());
-app.use(static(path.resolve(__dirname, 'public')));
 app.use(bodyparser());
 
 

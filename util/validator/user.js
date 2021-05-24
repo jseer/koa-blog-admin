@@ -10,7 +10,7 @@ const rules = {
         password: {
             type: 'string',
             required: true,
-            min: 1,
+            min: 6,
             max: 20,
         }
     },
@@ -23,6 +23,34 @@ const rules = {
             type: 'string',
             required: true,
         },
+    },
+    query: {
+        pageNum: {
+            type: 'number',
+            required: true,
+            min: 1,
+        },
+        pageSize: {
+            type: 'number',
+            required: true,
+            min: 1,
+        }
+    },
+    update: {
+        id: {
+            type: 'number',
+            required: true,
+        },
+        isAdmin: {
+            type: 'boolean',
+        }
+    },
+    delete: {
+        ids: {
+            type: 'array',
+            required: true,
+            defaultField: { type: 'number', required: true },
+        }
     }
 }
 

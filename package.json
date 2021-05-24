@@ -17,7 +17,6 @@
     "dayjs": "^1.10.4",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
-    "koa-cors": "0.0.16",
     "koa-router": "^10.0.0",
     "koa-session": "^6.2.0",
     "koa-static": "^5.0.0",
