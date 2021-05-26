@@ -8,7 +8,9 @@ module.exports = {
   },
   session: {
     key: "koa.sess",
-    maxAge: 86400000,
+    cookie: {
+      maxAge: 86400000,
+    },
   },
   redis: {
     host: "127.0.0.1",

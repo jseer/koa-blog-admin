@@ -2,11 +2,11 @@ const Koa = require("koa");
 const bodyparser = require("koa-bodyparser");
 const static = require("koa-static");
 const path = require("path");
-const session = require('koa-session');
+const session = require('koa-generic-session');
 const config = require("./config");
 const checkLogin = require("./middlewares/checkLogin");
-const RedisStore = require("koa-redis");
-const redisClient = require('./db/redis');
+const redisStore = require("koa-redis");
+// const redisClient = require('./db/redis');
 
 const app = new Koa();
 app.keys = ["koa-blog"];
@@ -21,14 +21,15 @@ app.use(static(path.resolve(__dirname, "public")));
   const fnPath = path.resolve(__dirname, "middlewares", name);
   app.use(require(fnPath)());
 });
-app.use(
-  session({
-    ...config.session,
-    store: new RedisStore({
-      client: redisClient,
-    }),
-  }, app)
-);
+app.use(session({
+  ...config.session,
+  store: redisStore({
+    // client: redisClient,
+    host: '127.0.0.1',
+    port: 6379,
+    password: 123456,
+  })
+}));
 app.use(checkLogin());
 app.use(bodyparser());
 

@@ -6,10 +6,10 @@ module.exports = function () {
     ]
     return async (ctx, next) => {
         if(ignore.includes(ctx.path)) {
-            return await next();
+            return next();
         }
         if(ctx.session.userId || ctx.session.userId===0) {
-            return await next();
+            return next();
         } else {
             ctx.status = 401;
             ctx.body = {
