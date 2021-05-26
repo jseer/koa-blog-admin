@@ -8,6 +8,7 @@ module.exports = function () {
         if(ignore.includes(ctx.path)) {
             return next();
         }
+        console.log(ctx.session);
         if(ctx.session.userId || ctx.session.userId===0) {
             return next();
         } else {
