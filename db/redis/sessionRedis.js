@@ -8,6 +8,7 @@ const ONE_DAY = 1000 * 60 * 60 * 24;
 class SessionRedis {
   async get(key) {
     const res = await getAsync(key);
+    console.log('get redis: ', res);
     if (!res) return null;
     return JSON.parse(res);
   }
