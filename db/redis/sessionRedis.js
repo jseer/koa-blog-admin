@@ -16,6 +16,7 @@ class SessionRedis {
   async set(key, value, maxAge) {
     maxAge = typeof maxAge === "number" ? maxAge : ONE_DAY;
     value = JSON.stringify(value);
+    console.log('set redis: ', value);
     await setAsync(key, value, "PX", maxAge);
   }
 
