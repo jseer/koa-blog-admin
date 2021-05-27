@@ -2,7 +2,7 @@ const Koa = require("koa");
 const bodyparser = require("koa-bodyparser");
 const static = require("koa-static");
 const path = require("path");
-const session = require('koa-session');
+const session = require('koa-generic-session');
 const config = require("./config");
 const checkLogin = require("./middlewares/checkLogin");
 const redisStore = require("koa-redis");
@@ -29,7 +29,7 @@ app.use(session({
     port: 6379,
     password: 123456,
   })
-}, app));
+}));
 app.use(checkLogin());
 app.use(bodyparser());
 
