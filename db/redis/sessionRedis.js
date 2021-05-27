@@ -7,8 +7,9 @@ const delAsync = promisify(redis.del).bind(redis);
 const ONE_DAY = 1000 * 60 * 60 * 24;
 class SessionRedis {
   async get(key) {
+    console.log('get redis key', key)
     const res = await getAsync(key);
-    console.log('get redis: ', key, res);
+    console.log('get redis res', res);
     if (!res) return null;
     return JSON.parse(res);
   }
