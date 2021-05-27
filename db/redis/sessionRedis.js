@@ -8,7 +8,7 @@ const ONE_DAY = 1000 * 60 * 60 * 24;
 class SessionRedis {
   async get(key) {
     const res = await getAsync(key);
-    console.log('get redis: ', res);
+    console.log('get redis: ', key, res);
     if (!res) return null;
     return JSON.parse(res);
   }
@@ -16,7 +16,7 @@ class SessionRedis {
   async set(key, value, maxAge) {
     maxAge = typeof maxAge === "number" ? maxAge : ONE_DAY;
     value = JSON.stringify(value);
-    console.log('set redis: ', value);
+    console.log('set redis: ', key, value);
     await setAsync(key, value, "PX", maxAge);
   }
 
